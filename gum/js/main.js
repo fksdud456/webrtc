@@ -12,9 +12,21 @@ var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
 
 // Put variables in global scope to make them available to the browser console.
+// constraints 는 getUserMedia의 매개변수로 사용되며
+// audio, video 속성을 변경할 수 있다. 아래 사이트 참고
+// webrtc.github.io/samples/src/content/peerconnection/constraints
 var constraints = window.constraints = {
-  audio: false,
-  video: true
+    "audio": true,
+    "video": {
+        "width": {
+            "min": "300",
+            "max": "640"
+        },
+        "height": {
+            "min": "200",
+            "max": "480"
+        }
+    }
 };
 
 function handleSuccess(stream) {
@@ -47,5 +59,12 @@ function errorMsg(msg, error) {
   }
 }
 
+// .then()  허용됐을 때 실행되는 callback 함수
+// .catch() 오류났을 때 실행되는 callback 함수
+
+// getUserMedia 가 호출되면 마이크, 카메라에 접근을 허용하는지 물어본다
+// 허용이되면 MediaStream을 리턴한다.
+// .then(handleSuccess) : handleSuccess 함수가 실행되며 MediaStream을 parameter로 받는다.
+// video태그의 srcObject 속성으로 사용된다.
 navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
