@@ -241,6 +241,8 @@ function callAction() {
   trace('Added local stream to localPeerConnection.');
 
   trace('localPeerConnection createOffer start.');
+  trace('SDP(Session Description Protocol) 생성.');
+  trace('local peer 는 offer를 생성하고 remote peer는 answer를 생성한다')
   localPeerConnection.createOffer(offerOptions)
     .then(createdOffer).catch(setSessionDescriptionError);
 }
